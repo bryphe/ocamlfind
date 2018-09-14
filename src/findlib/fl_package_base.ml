@@ -172,6 +172,7 @@ let query package_name =
   let main_name = List.hd package_name_comps in
 
   let process_file_and_lookup ?directory_required package_dir meta_file =
+    print_endline ("query::process_file_and_lookup: " ^ package_dir ^ "|" ^ meta_file);
     let packages =
       packages_in_meta_file
 	?directory_required ~name:main_name ~dir:package_dir ~meta_file () in
@@ -194,10 +195,12 @@ let query package_name =
     | dir :: path' ->
     print_endline ("fl_package_base::query::run_ocamlpath - dir: " ^ dir);
 	let package_dir = Filename.concat dir main_name in
+    print_endline ("fl_package_base::query::run_ocamlpath - package_dir: " ^ package_dir);
 	let meta_file_1 = Filename.concat package_dir "META" in
 	let meta_file_2 = Filename.concat dir ("META." ^ main_name) in
+  print_endline ("-- meta_file_1: " ^ meta_file_1);
 	if Sys.file_exists meta_file_1 then
-	  process_file_and_lookup package_dir meta_file_1
+      process_file_and_lookup package_dir meta_file_1
 	else
 	  if Sys.file_exists meta_file_2 then
 	    process_file_and_lookup ~directory_required:true dir meta_file_2
