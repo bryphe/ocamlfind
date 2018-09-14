@@ -26,7 +26,6 @@ install:
 	if [ $(INSTALL_CAMLP4) -eq 1 ]; then \
 		cp tools/safe_camlp4 "$(prefix)$(OCAMLFIND_BIN)"; \
 	fi
-	$(MAKE) install-doc
 
 uninstall:
 	$(MAKE) uninstall-doc

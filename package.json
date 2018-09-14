@@ -1,44 +1,53 @@
 {
-  "name": "lib-findlib",
-  "version": "9.9.9",
-  "esy": {
-      "build": [
-        [
-          "./configure",
-          "-bindir",
-          "#{self.bin}",
-          "-sitelib",
-          "#{self.lib}",
-          "-mandir",
-          "#{self.man}",
-          "-config",
-          "#{self.lib}/findlib.conf",
-          "-no-custom",
-          "-no-topfind"
+    "name": "lib-findlib",
+    "version": "9.9.9",
+    "esy": {
+        "build": [
+            [
+                "./configure",
+                "-bindir",
+                "#{self.bin}",
+                "-sitelib",
+                "#{self.lib}",
+                "-mandir",
+                "#{self.man}",
+                "-config",
+                "#{self.lib}/findlib.conf",
+                "-no-custom",
+                "-no-topfind"
+            ],
+            [
+                "make",
+                "all"
+            ],
+            [
+                "make",
+                "opt"
+            ],
+            [
+                "make",
+                "install"
+            ],
+            [
+                "bash",
+                "-c",
+                "#{self.bin}/ocamlfind.exe query ocamlbuild"
+            ]
         ],
-        [
-          "make",
-          "all"
-        ],
-        [
-          "make",
-          "opt"
-        ]
-      ],
-      "exportedEnv": {
-        "OCAML_TOPLEVEL_PATH": {
-          "val": "#{self.toplevel}",
-          "scope": "global"
-        }
-      },
-      "buildsInSource": "_build"
-  },
-  "peerDependencies": {
-    "ocaml": "~4.6.0"
-  },
-  "dependencies": {
-    "ocaml": "~4.6.0",
-    "@opam/conf-m4": "*",
-    "@opam/ocamlbuild": "*"
-  }
+        "exportedEnv": {
+            "OCAML_TOPLEVEL_PATH": {
+                "val": "#{self.toplevel}",
+                "scope": "global"
+            }
+        },
+        "buildsInSource": "_build"
+    },
+    "peerDependencies": {
+        "ocaml": "~4.6.0"
+    },
+    "dependencies": {
+        "ocaml": "~4.6.0",
+        "@opam/conf-m4": "*",
+        "@opam/ocamlbuild": "*"
+    }
 }
