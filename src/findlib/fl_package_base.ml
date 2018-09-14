@@ -165,6 +165,8 @@ let packages_in_meta_file ?(directory_required = false)
 
 let query package_name =
 
+  print_endline ("fl_package_base::query - package name: "  ^ package_name);
+
   let package_name_comps = Fl_split.package_name package_name in
   if package_name_comps = [] then invalid_arg "Fl_package_base.query";
   let main_name = List.hd package_name_comps in
@@ -190,6 +192,7 @@ let query package_name =
     match path with
       [] -> raise(No_such_package(package_name, ""))
     | dir :: path' ->
+    print_endline ("fl_package_base::query::run_ocamlpath - dir: " ^ dir);
 	let package_dir = Filename.concat dir main_name in
 	let meta_file_1 = Filename.concat package_dir "META" in
 	let meta_file_2 = Filename.concat dir ("META." ^ main_name) in
@@ -206,7 +209,10 @@ let query package_name =
   in
 
   try
-    Fl_metastore.find store package_name
+      print_endline ("trying fl_metastore....");
+    let result = Fl_metastore.find store package_name in
+      print_endline ("completed fl_metastore....");
+    result
   with
     Not_found ->
       run_ocamlpath !ocamlpath

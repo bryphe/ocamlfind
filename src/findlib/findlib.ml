@@ -3,6 +3,8 @@
  *
  *)
 
+print_endline "Hello from findlib! ----";;
+
 module StrSet = Set.Make(String)
 
 exception No_such_package 
@@ -361,7 +363,9 @@ let ignore_dups_in() =
 
 let package_directory pkg =
   lazy_init();
-  (Fl_package_base.query pkg).Fl_package_base.package_dir
+  let pkgdir = (Fl_package_base.query pkg).Fl_package_base.package_dir in
+  print_endline("findlib::package_directory: " ^ pkgdir);
+  pkgdir
 ;;
 
 
